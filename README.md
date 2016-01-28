@@ -16,3 +16,5 @@ Here's a quick summary of what is being taught, and by whom in the non-SWC sessi
  - Building web apps in Shiny (Mik): need to generate this material.  Barebones example on Data Carpentry: https://github.com/datacarpentry/2015-06-30-FederalReserveBoard/wiki
  - Tools for RR: Mik - material TBD
  - Data Carpentry: Aleksandra - material TBD (merge with Tools4RR?)
+ - Intro to Python: Sung - material from SWC Python lesson: http://swcarpentry.github.io/python-novice-inflammation/
+ - Advanced Unix Shell - David: existing material?
