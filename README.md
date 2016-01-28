@@ -12,7 +12,8 @@ Here's a quick summary of what is being taught, and by whom in the non-SWC sessi
   - Accessing NeSI Resources (Sung): existing material?
   - Parallel R on NeSI (Tom): material on his repo: https://github.com/TomKellyGenetics/resbaz-2016-NeSI_Rmpi_Demo
  - Building web apps in Shiny (Mik): need to generate this material.  Barebones example on Data Carpentry: https://github.com/datacarpentry/2015-06-30-FederalReserveBoard/wiki
- - Tools for RR: Mik - material TBD.  Karl Broman has a whole (awesome) course on this: https://github.com/kbroman/Tools4RR/tree/master
+ - Tools for RR (morning - more advanced): Aleksandra - material TBD.  
+ - Intro to Tools for RR (afternoon - basic): Mik - material TBD.  Karl Broman has a whole (awesome) course on this: https://github.com/kbroman/Tools4RR/tree/master
  - Data Carpentry: Aleksandra - material TBD (merge with Tools4RR?)
  - Intro to Python: Sung - material from SWC Python lesson: http://swcarpentry.github.io/python-novice-inflammation/
  - Advanced Unix Shell - David: existing material?
