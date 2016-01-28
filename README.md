@@ -10,5 +10,7 @@ Here's a quick summary of what is being taught, and by whom in the non-SWC sessi
  - Data manipulation: Murray - draws upon content from http://www.datacarpentry.org/R-ecology/
  - Plotting in R: Murray, Mik & Tanya (is Mik needed?) - uses the plotting material from the sessions with the summer students in December?  Base R plotting: https://github.com/murraycadzow/R_tutorials/blob/master/plotting.Rmd
    ggplot2 material - https://github.com/smilefreak/studyGroup/blob/gh-pages/lessons/ggplot2_tutorial.Rmd
- - Parallel R on NeSI: Tom - material on his repo: https://github.com/TomKellyGenetics/resbaz-2016-NeSI_Rmpi_Demo
+ - NeSI: Sung and Tom
+  - Accessing NeSI Resources (Sung): existing material?
+  - Parallel R on NeSI (Tom): material on his repo: https://github.com/TomKellyGenetics/resbaz-2016-NeSI_Rmpi_Demo
  - Building web apps in Shiny (Mik): need to generate this material.  Barebones example on Data Carpentry: https://github.com/datacarpentry/2015-06-30-FederalReserveBoard/wiki
