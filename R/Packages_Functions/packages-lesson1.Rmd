@@ -1,0 +1,151 @@
+---
+title: "Packages - Lesson 1"
+author: "Mik Black"
+date: "2 Feb 2016"
+output: ioslides_presentation
+---
+
+## Attribution
+
+![](https://hilaryparker.files.wordpress.com/2014/10/cropped-img_20140902_1804591.jpg)
+
+Thanks to Hilary Parker - code adapted from:
+
+http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+
+
+## Getting ready
+
+```{r, eval=FALSE}
+install.packages('devtools')
+library("devtools")
+devtools::install_github("klutometis/roxygen")
+library(roxygen2)
+```
+
+```{r, echo=FALSE}
+library(devtools)
+library(roxygen2)
+```
+
+## Setting up
+
+```{r, echo=FALSE}
+system('rm -Rf cats')
+## remove.packages('cats')
+```
+
+```{r}
+create("cats")
+```
+
+## What did that do?
+
+```{r}
+list.files(path = "cats", recursive=TRUE, include.dirs=TRUE)
+```
+
+## Create a function
+
+```{r}
+cat_function <- function(love=TRUE){
+    if(love==TRUE){
+        print("I love cats!")
+    }
+    else {
+        print("I am not a cool person.")
+    }
+}
+```
+
+## Try it out
+
+```{r}
+cat_function(love=TRUE)
+cat_function(love=FALSE)
+cat_function()
+```
+
+## Write the function to a file
+
+```{r}
+dump('cat_function', file='cats/R/cat_function.R')
+```
+
+## Add some extra info to it
+
+```{r, eval=FALSE}
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' cat_function()
+```
+
+```{r, echo=FALSE}
+
+x<-c("#' A Cat Function",
+     "#'",
+     "#' This function allows you to express your love of cats.",
+     "#' @param love Do you love cats? Defaults to TRUE.",
+     "#' @keywords cats",
+     "#' @export",
+     "#' @examples",
+     "#' cat_function()",
+     "")
+write(x, file='cats/R/cat_function.R')
+dump('cat_function', file='cats/R/cat_function.R', append=TRUE)
+```
+
+## Process your documentation
+
+```{r}
+setwd("./cats")
+document()
+```
+
+```{r, echo=FALSE}
+rm('cat_function')
+detach("package:cats", unload=TRUE)
+```
+
+## Install package
+
+```{r, eval=FALSE}
+setwd("..")
+install("cats")
+```
+
+```{r, echo=FALSE}
+install('cats')
+```
+
+## Test it out
+
+Don't forget to load the library first...
+
+```{r, error=TRUE}
+cat_function()
+```
+
+```{r}
+library(cats)
+cat_function()
+```
+
+## Test your documentation
+
+```{r}
+?cat_function
+```
+
+## Install from Github repo
+
+```{r, eval=FALSE}
+install_github('mikblack/cats')
+```
+
+
