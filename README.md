@@ -17,3 +17,4 @@ Here's a quick summary of what is being taught, and by whom in the non-SWC sessi
  - Data Carpentry: Aleksandra - material TBD (merge with Tools4RR?)
  - Intro to Python: Sung - material from SWC Python lesson: http://swcarpentry.github.io/python-novice-inflammation/
  - Advanced Unix Shell - David: existing material?
+ - Mozilla Study Groups: Mik, Murray, Tom - mainly discussion, but will need some slides for scene setting.
