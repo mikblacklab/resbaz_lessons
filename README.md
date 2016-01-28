@@ -1,7 +1,5 @@
 # resbaz_lessons
 
-A few comments from Mik:
-
 Here's a quick summary of what is being taught, and by whom in the non-SWC sessions:
  - Functions and Packages: Mik and Murray
    - Creating functions (Mik): material taken from existing SWC lesson: http://swcarpentry.github.io/r-novice-inflammation/02-func-R.html
