@@ -1,5 +1,5 @@
 ---
-title: "R-based web apps with Shiny server"
+title: "R-based web apps with Shiny"
 author: "Mik Black"
 date: "4 February 2016"
 output: html_document
