@@ -21,14 +21,19 @@ This will carry on with the example from lesson 1
 install.packages('testthat')
 
 library(testthat)
-getwd()
+
 ```
 
 change your working dir to 'cats'
 
+```{r, eval = FALSE}
+setwd("cats")
+```
+
 ## Initialise the test directory
 
 ```{r, eval = FALSE}
+
 devtools::use_testthat()
 
 ```
@@ -40,3 +45,77 @@ This creates
 * Adds testthat to the Suggests field in the DESCRIPTION
 
 * Creates a file tests/testthat.R that runs all your tests are when R CMD check runs
+
+## The Tests Dir
+
+```{r, eval = FALSE}
+list.files(path = "tests/", recursive=TRUE, include.dirs=TRUE)
+```
+
+* The tests dir has tests/testthat.R and tests/testthat/
+
+* We create our tests to be run in tests/testthat/
+
+* The filenames start with test, eg test_cat_function.R
+
+## tests/testthat.R
+
+This file tells test that to load the testthat library when testing
+
+and to go through the tests that are stored in tests/testthat/
+
+## Test structure
+
+Test files contain 
+
+* __context__ - a description of what is being tested
+
+* one or more tests
+
+Tests are organised hierarchically: 
+
+__expectations__ are grouped into __tests__ which are organised in __files__
+
+```{r, eval=FALSE}
+library(stringr)
+context("String length")
+
+test_that("str_length is number of characters", {
+  expect_equal(str_length("a"), 1)
+  expect_equal(str_length("ab"), 2)
+  expect_equal(str_length("abc"), 3)
+})
+```
+
+## Tests
+
+A test groups together multiple expectations to test output
+
+This can range from a simple function through to a complex multi-argument function
+
+Sometimes called a __unit__ test because it tests one unit of functionality
+
+
+## Expectations
+
+The 'atom' of testing
+
+Describes the output of a computation
+
+Does it produce what it should?
+
+Does it produce an error code?
+
+Expectations are functions that start with expect_
+
+## Expectations cont.
+
+Expectations make a binary assertion about what a function does
+
+Structure:
+
+  * start with __expect\___
+
+  * have two arguments, 1st: actual result, 2nd what was expected
+  
+  * if actual and expected don't match testthat throws an error
