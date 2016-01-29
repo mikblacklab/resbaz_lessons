@@ -193,6 +193,72 @@ test_that(&quot;str_length is number of characters&quot;, {
 <li><p>if actual and expected don&#39;t match testthat throws an error</p></li>
 </ul>
 
+</article></slide><slide class=''><hgroup><h2>Expectations cont. 2</h2></hgroup><article  id="expectations-cont.-2">
+
+<p>the common expectations that we can use are:</p>
+
+<pre class = 'prettyprint lang-r'>expect_equal()
+
+expect_identical()
+
+expect_match()
+
+expect_output()
+
+expect_message()
+
+expect_error()</pre>
+
+<p>There are many others too</p>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section">
+
+<pre class = 'prettyprint lang-r'>expect_equal(10, 10)
+
+expect_equal(10, 10 + 1e-7)
+
+expect_equal(10, 11)
+#&gt; Error: 10 not equal to 11</pre>
+
+<p>expect_equal uses all.equal() which allows a numerical tolerance</p>
+
+<p>For exact comparisons use expect_identical(), which uses identical()</p>
+
+<pre class = 'prettyprint lang-r'>expect_equal(10, 10 + 1e-7)
+
+expect_identical(10, 10 + 1e-7)
+#&gt; Error: 10 is not identical to 10 + 1e-07. Differences: 
+#&gt; Objects equal but not identical</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-1">
+
+<pre class = 'prettyprint lang-r'>string &lt;- &quot;Testing is fun!&quot;
+
+expect_match(string, &quot;Testing&quot;) 
+
+# Fails, match is case-sensitive
+expect_match(string, &quot;testing&quot;)
+#&gt; Error: string does not match &#39;testing&#39;. Actual value: &quot;Testing is fun!&quot;
+
+# Additional arguments are passed to grepl:
+expect_match(string, &quot;testing&quot;, ignore.case = TRUE)</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-2">
+
+<p>Variations of expect_match() allow you to check for:</p>
+
+<pre class = 'prettyprint lang-r'># checks printed output
+expect_output()
+
+# checks messages
+expect_message()
+
+#checks warnings
+expect_warning()
+
+# checks errors
+expect_error()</pre>
+
 </article></slide><slide class=''><hgroup><h2>What to test</h2></hgroup><article  id="what-to-test">
 
 <p>If you find a bug, write a test <strong>then</strong> fix</p>
