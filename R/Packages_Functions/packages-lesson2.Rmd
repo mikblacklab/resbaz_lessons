@@ -1,0 +1,42 @@
+---
+title: "Packages - Lesson 2"
+author: "Murray Cadzow"
+date: "29 January 2016"
+output: ioslides_presentation
+---
+
+## Attribution
+
+Much of this content is adapted from Hadley Wickham's R packages book
+http://r-pkgs.had.co.nz/tests.html
+
+and from Karl Broman
+http://kbroman.org/pkg_primer/pages/tests.html
+
+## Getting set up
+
+This will carry on with the example from lesson 1
+
+```{r eval = FALSE}
+install.packages('testthat')
+
+library(testthat)
+getwd()
+```
+
+change your working dir to 'cats'
+
+## Initialise the test directory
+
+```{r, eval = FALSE}
+devtools::use_testthat()
+
+```
+
+This creates
+
+* A tests/testthat directory
+
+* Adds testthat to the Suggests field in the DESCRIPTION
+
+* Creates a file tests/testthat.R that runs all your tests are when R CMD check runs
