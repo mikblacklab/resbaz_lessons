@@ -1,0 +1,407 @@
+---
+title: "R-based web apps with Shiny server"
+author: "Mik Black"
+date: "4 February 2016"
+output: html_document
+---
+
+## Rstudio links
+
+http://shiny.rstudio.com/
+
+http://shiny.rstudio.com/tutorial/
+
+## Load shiny package
+
+```{r}
+library(shiny)
+```
+
+## Example ui.R code
+
+Taken from: http://shiny.rstudio.com/tutorial/
+
+```{r, eval=FALSE}
+
+
+shinyUI(bootstrapPage(
+
+  selectInput(inputId = "n_breaks",
+      label = "Number of bins in histogram (approximate):",
+      choices = c(10, 20, 35, 50),
+      selected = 20),
+
+  checkboxInput(inputId = "individual_obs",
+      label = strong("Show individual observations"),
+      value = FALSE),
+
+  checkboxInput(inputId = "density",
+      label = strong("Show density estimate"),
+      value = FALSE),
+
+  plotOutput(outputId = "main_plot", height = "300px"),
+
+  # Display this only if the density is shown
+  conditionalPanel(condition = "input.density == true",
+    sliderInput(inputId = "bw_adjust",
+        label = "Bandwidth adjustment:",
+        min = 0.2, max = 2, value = 1, step = 0.2)
+  )
+
+))
+
+```
+
+## Example server.R code
+
+Taken from: http://shiny.rstudio.com/tutorial/
+
+```{r, eval=FALSE}
+shinyServer(function(input, output) {
+
+  output$main_plot <- renderPlot({
+
+    hist(faithful$eruptions,
+      probability = TRUE,
+      breaks = as.numeric(input$n_breaks),
+      xlab = "Duration (minutes)",
+      main = "Geyser eruption duration")
+
+    if (input$individual_obs) {
+      rug(faithful$eruptions)
+    }
+
+    if (input$density) {
+      dens <- density(faithful$eruptions,
+          adjust = input$bw_adjust)
+      lines(dens, col = "blue")
+    }
+
+  })
+})
+```
+
+## Can we make it more simple?
+
+Start with the "cars" data set from base R:
+
+```{r}
+data(cars)
+dim(cars)
+head(cars)
+```
+
+## What might we like to plot?
+
+```{r, fig.width=10}
+par(mfrow=c(1,2))
+hist(cars$speed)
+hist(cars$dist)
+```
+
+## Different syntax
+
+Remember that we can also specify columns via: `hist(cars[,"speed"])` which will come in handy later:
+
+```{r}
+hist(cars[ , "speed"])
+```
+
+## Creating a VERY basic shiny app: content
+
+server.R file:
+
+```{r, eval=FALSE}
+## Load the "cars" data set
+data(cars)
+
+## Create the function to be excuted by shiny 
+shinyServer(function(input, output) {
+  
+## Define an object called "main_plot" that will be drawn by the "renderPlot" function
+  output$main_plot <- renderPlot({
+
+## Specify the plot that will be generated
+      hist(cars[,"speed"])
+  })
+  
+})
+```
+
+## Creating a VERY basic shiny app: interface
+
+Initially we have no need for an interface - the plot we are generating is fixed.
+
+ui.R file:
+
+```{r, eval=FALSE}
+shinyUI(bootstrapPage(
+  
+## Tell shiny what to plot - the "main_plot" object associated with "output" generated
+## by the server.R file
+  plotOutput(outputId = "main_plot")
+  
+))
+
+```
+
+## Running the app
+
+Create a subdirectory called "carsApp", and place the ui.R and server.R files in that directory.
+
+In R, load the shiny library, and run the app:
+
+```{r, eval=FALSE}
+library(shiny)
+runApp('carsApp')
+```
+
+If you are working in RStudio, the `runApp()` command will open your app in a built-in web browser, otherwise it will open in your usual system browser (e.g., Firefox).
+
+## That app is boring!!  (and ugly)
+
+All the `runApp()` command did was create an ugly plot in a web browser.
+
+We won't fix the "ugly" just yet, but lets improve the interactivity.
+
+## Adding interactivity: ui.R
+
+Add an option to choose which variable to plot.
+
+First update the interface:
+
+```{r, eval=FALSE}
+shinyUI(bootstrapPage(
+  
+  selectInput(inputId = "plot_var",
+              label = "Variable to plot",
+              choices = c("speed", "dist"),
+              selected = "speed"),
+    
+## Tell shiny what to plot - the "main_plot" object associated with "output" generated
+## by the server.R file
+  plotOutput(outputId = "main_plot")
+  
+))
+```
+
+Then modify the server.R file to accommodate the new information. Specifically, we edit the line:
+
+```{r, eval=FALSE}
+hist(cars[,"speed"])
+```
+
+and replace it with 
+
+```{r, eval=FALSE}
+hist(cars[,input$plot_var])
+```
+
+This tells the `hist` command to plot the data specified by `plot_var` from the `input` object (specified in ui.R).
+
+```{r, eval=FALSE}
+## Load the "cars" data set
+data(cars)
+
+## Create the function to be excuted by shiny 
+shinyServer(function(input, output) {
+  
+## Define an object called "main_plot" that will be drawn by the "renderPlot" function
+  output$main_plot <- renderPlot({
+
+## Specify the plot that will be generated
+      hist(cars[,input$plot_var])
+  })
+  
+})
+```
+
+## Test the new app
+
+```{r, eval=FALSE}
+runApp('carsApp')
+```
+
+Now we've got some interactivity!  Time work on the "ugly"...
+
+## Change the page style
+
+ui.R file:
+
+```{r, eval=FALSE}
+shinyUI(pageWithSidebar(
+  
+## Give the application a title
+  headerPanel("My awesome plotting app"),
+  
+## Put the input controls in a sidebar 
+  sidebarPanel(
+    
+  selectInput(inputId = "plot_var",
+              label = "Variable to plot",
+              choices = c("speed", "dist"),
+              selected = "speed")
+  ),
+
+## Put the outout in the main panel
+  mainPanel(
+
+    ## Give the panel a name
+    h4("Plot of cars data"),
+    
+    ## Tell shiny what to plot - the "main_plot" object associated with "output" generated
+    ## by the server.R file
+    plotOutput(outputId = "main_plot")
+  )
+))
+
+## Lets get some more interactivity
+
+Add the following to the ui.R file below the current `selectInput` statement:
+
+```{r, eval=FALSE}
+sliderInput(inputId = "nbins",
+            label = "Number of bins",
+            min=2,
+            max=15,
+            value=10,
+            round=TRUE)
+```
+
+Note that you'll need to add a comma to the last line of the `selectInput`, that is:
+
+```{r, eval=FALSE}
+selected = "speed"),
+```
+
+Now we need to update the server.R file to use this new information.  Replace the line:
+
+```{r, eval=FALSE}
+hist(cars[,input$plot_var])
+```
+
+with
+
+```{r, eval=FALSE}
+hist(cars[,input$plot_var], breaks = input$nbins)
+```
+
+Run the app, and see what happens!
+
+```{r, eval=FALSE}
+runApp('carsApp')
+```
+
+## Getting fancier - adding tabs:
+
+Create something new to plot in server.R (add below the existing plotting code):
+
+```{r, eval=FALSE}
+## Define a second plot
+  output$second_plot <- renderPlot({
+
+## Specify the plot that will be generated
+      boxplot(cars[,input$plot_var])
+  })
+```
+
+Now alter the "mainPanel" section of ui.R to add information about tabs:
+
+```{r, eval=FALSE}
+  mainPanel(
+
+    ## Add tabs
+    tabsetPanel(
+
+      ## Define a tab for the histogram
+      tabPanel(
+        h4("Plot of cars data"),
+        plotOutput(outputId = "main_plot")
+      ),
+
+     ## And a tab for the boxplot
+      tabPanel(
+        h4("Boxplot of cars data"),
+        plotOutput(outputId = "second_plot")
+      )
+     
+    )
+  )
+```
+
+Note that the `outputId` defined in `server.R` is being used to determine which output to include on each tab.
+
+Run the app - this is getting cooler.
+
+```{r, eval=FALSE}
+runApp('carsApp')
+```
+
+## Conditioning
+
+Shiny also provides the ability to "conditionally" display input selectors.
+
+In our current app, the slider input remains visible when the boxplot tab is being viewed, even though it is not relevant for that plot (and moved it has no impact).
+
+To ensure that the slider only appears for the histogram panel, alter the ui.R file to specify when it should be displayed.
+
+The sidebarPanel section of ui.r now becomes:
+
+```{r, eval=FALSE}
+sidebarPanel(
+    
+  selectInput(inputId = "plot_var",
+              label = "Variable to plot",
+              choices = c("speed", "dist"),
+              selected = "speed"),
+
+  ## Add a conditionalPanel containing the slider - define it as "condition 1"
+  conditionalPanel(condition="input.conditionedPanels==1",
+                   sliderInput(inputId = "nbins",
+                               label = "Number of bins",
+                               min=2,
+                               max=15,
+                               value=10,
+                               round=TRUE)
+                  )
+  ),
+```
+
+In the mainPanel section, specify when "condition 1" occurs:
+
+```{r, eval=FALSE}
+  mainPanel(
+
+    tabsetPanel(
+
+      tabPanel(
+        h4("Plot of cars data"),
+        plotOutput(outputId = "main_plot")
+        ## Define the value of this tab
+        , value=1
+      ),
+
+      tabPanel(
+        h4("Boxplot of cars data"),
+        plotOutput(outputId = "second_plot")
+        ## Define the value of this tab (not actualled necessary - next line not needed)
+        , value=0
+      )
+      ## Name the panel to correspond to the codition defined in sidebarPanel
+      , id = "conditionedPanels"
+    )
+  )
+```
+
+Now when you run the app, the slider only appears in the sidebarPanel when the histrogram tab is being displayed.  Much tidier....
+
+
+
+
+
+
+
+
+
+
+
