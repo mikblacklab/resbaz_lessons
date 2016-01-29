@@ -12,3 +12,4 @@ different versions of the carsApp appliction that is build cummulatively during 
  - carsApp-4: add tabs and display a different plot in each
  - carsApp-5: use conditioning so that the slider is only display for relevant plot
  
+HTML version viable at: https://rawgit.com/mikblacklab/resbaz_lessons/master/R_Shiny_Web_Apps/shiny.html
