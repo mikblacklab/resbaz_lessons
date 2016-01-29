@@ -188,8 +188,25 @@ test_that(&quot;str_length is number of characters&quot;, {
 <p>Structure:</p>
 
 <ul>
-<li>start with <strong>expect_</strong></li>
-</ul></article></slide>
+<li><p>start with <strong>expect_</strong></p></li>
+<li><p>have two arguments, 1st: actual result, 2nd what was expected</p></li>
+<li><p>if actual and expected don&#39;t match testthat throws an error</p></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>What to test</h2></hgroup><article  id="what-to-test">
+
+<p>If you find a bug, write a test <strong>then</strong> fix</p>
+
+<p>How can someone break your function?</p>
+
+<ul>
+<li><p>What happens if an argument isn&#39;t passed?</p></li>
+<li><p>What happens if someone passes the wrong data structure/type?</p></li>
+<li><p>What happens with NAs?</p></li>
+<li><p>Do your conditionals work as expected?</p></li>
+</ul>
+
+<p>What situations does your function need to handle and what can you let fail?</p></article></slide>
 
 
   <slide class="backdrop"></slide>

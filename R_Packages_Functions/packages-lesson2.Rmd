@@ -119,3 +119,20 @@ Structure:
   * have two arguments, 1st: actual result, 2nd what was expected
   
   * if actual and expected don't match testthat throws an error
+  
+## What to test
+
+If you find a bug, write a test __then__ fix
+
+How can someone break your function?
+  
+  * What happens if an argument isn't passed?
+  
+  * What happens if someone passes the wrong data structure/type?
+  
+  * What happens with NAs?
+  
+  * Do your conditionals work as expected?
+  
+What situations does your function need to handle and what can you let fail?
+
