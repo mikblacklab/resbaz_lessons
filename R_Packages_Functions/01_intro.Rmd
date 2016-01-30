@@ -1,0 +1,62 @@
+---
+title: "Creating Functions and Packages in R"
+author: "Mik Black"
+date: "2 February 2016"
+output: ioslides_presentation
+---
+
+## Overview - what will we cover?
+
+ - Writing functions in R
+ - R package construction (basic)
+ - R pckage anatomy
+ - R packages distribution
+ - Testing
+
+## Introduction - functions
+
+ - In R, internal and library functions provide users with access to powerful analytic tools.
+ - These functions form the basis of much of our own code: we use functions written by others in a way that helps us achieve our own analysis goals.
+ - Even relatively inexperienced R users are fairly quick to adopt the idea of loading packages to gain access to powerful collections of functions.
+ 
+## Writing our own functions
+
+ - Despite our love of other people's functions, it often takes R users a while to start writing their own functions, despite there being a number of benefits:
+  - better code organisation
+  - less code re-writing (e.g., copy and paste)
+  - better ability to test, debug and document
+  - improved sharing
+ 
+## Why don't we do it more?
+
+ - Time: it takes extra time to turn something into a function (but not much).
+ - Workflow: R code is often written as part of an exploratory data analysis process - it is being driven by ideas about the analysis we are performing and the question we ask along the way.
+ - Focus: R users are generally not trained programmers - our focus is on using code to achieve a goal, and that goal is not to create "elegant, well-written, re-useable" code.  It is generally about trying to answer a scientific question.
+ 
+## Why SHOULD we write functions?
+
+ - I am not even going to tell you how many times I have typed the same code across diferrent projects...  
+ - Turning frequently used code into a collection of functions will save you time
+ - It will also improve the readability, flow and organisation of your code.
+ - And once you get into the habit of creating your own functions, it will make you a better programmer.
+ 
+## Packages
+
+ - Once you've written some functions that you use regularly, it is a simple step to turn them into a package.
+  - Once installed, your functions are always available in R.
+  - Makes software maintenance/improvement easier - all code stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)
+  - Makes sharing easier - others can use your functions by simply installing your package.
+  
+## Resources
+
+ - Hadley Wickham has produced some excellent material on coding style and package creation:
+  - Programming: http://adv-r.had.co.nz/
+  - Packages: http://r-pkgs.had.co.nz/
+ 
+## Lets write some functions....
+
+ - We'll use the Software Carpentry material on writing functions as a quick refresher:
+ 
+  http://swcarpentry.github.io/r-novice-inflammation/02-func-R.html
+ 
+ 
