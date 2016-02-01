@@ -1,5 +1,5 @@
 ---
-title: "Creating packages in R"
+title: "R: Functions and Packages"
 subtitle: "Part 4: Testing"
 author: "Murray Cadzow"
 date: "2 February 2016"
