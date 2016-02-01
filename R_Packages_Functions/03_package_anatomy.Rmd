@@ -16,8 +16,76 @@ output: ioslides_presentation
  - There are a few more things worth knowing though... (and many of them I learned from Hadley)
  - Note that Hadley's approach to creating packages is based on some additional functionality provided by RStudio: we haven't explicity utilized that here (more later).
  
-## What is in a package?
- - code: the R directory
- - metadata: 
+## Aside - it's a package, not a library...
 
-  
+ - Just a minor pont:
+    - package: the thing we just made (basically a collection of functions).
+    - library: a place where lots of packages live (i.e., a directory in your computer's filesystem).
+ 
+## What is in our package?
+ - Code: the 'R' directory
+ - Package metadata: DESCRIPTION file
+    - developer info (that's you)
+    - includes dependency infomation (packages, R version etc)
+    - version number
+ - Documentation: the man directory
+    - Objects and functions
+    - Use `roxygen` syntax to generate this automatically
+ - Namespace: NAMESPACE file
+ - RStudio project file: cats.Rproj (see next page)
+
+## Aside - the RStudio project file
+
+ - `cats.RProj`: text file created by `devtools`.
+ - Don't edit it by hand - use the RStudio interface ("Projects" drop down - top right).
+ - Have a quick look at the content...
+ 
+## What else can be in there?
+ 
+ - Vignettes: detailed user manual for the package - THESE ARE GREAT!
+    - create with Sweave or Rmarkdown/knitr
+    - include examples of typical workflows
+    - `devtools::use_vignette("my-vignette")` to generate basic framework
+ - Testing: the 'tests' directory (more later)
+ - Data files: the 'data' directory.
+ - Compiled code: the 'src' directory.
+ - Installed files: the 'inst' directory.
+
+## Package distribution
+
+ - How can you share you package with others?
+ - Build and send?
+```{r}
+## In R:
+devtools::build('cats')
+list.files(pattern="*.gz")
+```
+
+## Sharing your package
+
+ - Easy to share aa version you package with others.
+ - What happens when you change something?
+ - Need a system that allows users to automatically update their version of the package, without you having to rebuild it and send it to them.
+ - Perhaps time for some version control....
+
+## Using Git and GitHub
+
+ - Git provides the ability to track changes to the files that make up your package.
+ - GitHub extends this functionality be providing a centralised repository where the evolving (and stable) versions of a package can be stored, and accessed by others.
+ - The `devtools` packages provides an interface between R and GitHub, so that packages can be installed directly from a github repository.
+ - We've already done this with the `roxygen2` package: 
+```{r, eval=F}
+devtools::install_github("klutometis/roxygen")
+```
+ - GitHub repo: https://github.com/klutometis/roxygen
+    
+## The beauty of devtools...    
+    
+ - `devtools` has made package dvelopment and distribution simple
+     - Previously developers had to release packages through an established repository (e.g., CRAN or Bioconductor), or host copies of the package source code that could be downloaded and installed.
+     - Now the same tools being used to provide centralised version control (Git and GitHub), are also being used for package distribution.     
+ - Even if you're only developing packages for yourself, the combination of `devtools`, `roxygen2`, Git and GitHub is a powerful development platform.
+ - Now you just need to impliment some testing...
+    
+ 
+ 
