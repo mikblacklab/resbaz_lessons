@@ -14,7 +14,10 @@ output: ioslides_presentation
     - pdf: http://shop.oreilly.com/product/0636920034421.do
     - paper/kindle: http://www.amazon.com/dp/1491910593/
  - There are a few more things worth knowing though... (and many of them I learned from Hadley)
+ - Note that Hadley's approach to creating packages is based on some additional functionality provided by RStudio: we haven't explicity utilized that here (more later).
  
 ## What is in a package?
+ - code: the R directory
+ - metadata: 
 
   

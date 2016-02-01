@@ -1,0 +1,227 @@
+---
+title       : (Re)Introducing dplyr and ggvis
+subtitle    : Or "why Hadley Wickham is awesome, part 72..."
+author      : Mik Black
+job         : Group Meeting, 12 August 2014
+framework   : mikIO        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : mathjax            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## RStudio video: dplyr and ggvis
+
+ - Presentations on dplyr (Hadley) and ggvis (Winston Chang) from July 30:
+ 
+      Video: http://info.rstudio.net/n0N20NH02JCS0NX0X000Y74
+      
+      Code: https://github.com/rstudio/webinars
+
+   - `dplyr` expands on (refines?) Hadley's previous packages for data manipulation (`reshape` and `plyr`).
+ 
+   - ggvis provides the ability to embed interactive graphics into documents.
+
+---
+
+## Overview (stolen from talk)
+
+<center><img src = 'PNG/had1.png' height=450></img></center>
+
+### http://info.rstudio.net/n0N20NH02JCS0NX0X000Y74
+
+---
+
+## Resources
+
+ - Hadley's evolving book "Advanced R Programming"
+ 
+  http://adv-r.had.co.nz
+  
+ - Hadley's guide to developing packages:
+ 
+  http://r-pkgs.had.co.nz/
+  
+ - Tidy data
+ 
+  https://github.com/hadley/tidy-data
+  
+  http://vita.had.co.nz/papers/tidy-data.pdf
+
+---
+
+## dplyr
+
+ - `dplyr` is all about 
+
+---
+
+## dplyr commands (verbs)
+
+ - Verbs
+   - filter: keep specific rows
+   - select: choose columns by name
+   - arrange: reorder rows
+   - mutate: add variables
+   - summarise: reduces variables ot values
+   
+ - Documentation:
+ 
+```{r, eval=FALSE}
+browseVignettes('dplyr')
+```
+
+---
+
+## Example from webinar
+
+```{r}
+## Install the nycflights13 package via:
+## install_github("hadley/nycflights13")
+library(nycflights13)
+library(dplyr)
+```
+
+---
+
+```{r}
+# Single table verbs
+flights
+```
+
+---
+
+```{r}
+filter(flights, dest == "IAH")
+```
+
+---
+
+```{r}
+select(flights, starts_with("arr"))
+```
+
+---
+
+```{r}
+arrange(flights, desc(arr_delay))
+```
+
+---
+
+```{r}
+mutate(flights, speed = distance / air_time * 60)
+```
+
+---
+
+```{r}
+by_day <- group_by(flights, year, month, day)
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+---
+
+## Bad code - Mik style...
+
+```{r}
+hourly_delay <- filter(
+  summarise(
+    group_by(
+      filter(
+        flights,
+        !is.na(dep_delay)
+      ),
+      year, month, day
+    ),
+    delay = mean(dep_delay),
+    n=n()
+  ),
+  n > 10
+)
+```
+
+---
+
+```{r}
+hourly_delay
+```
+
+---
+
+## The pipe operator: `%>%`
+
+ - Read the pipe as "then": `x %>% f(y) -> f(x,y)`
+ 
+```{r}
+hourly_delay <- flights %>%
+  filter(!is.na(dep_delay)) %>%
+  group_by(year, month, day) %>%
+  summarise(
+    delay = mean(dep_delay),
+    n = n()
+  ) %>%
+  filter(n > 10)
+```
+
+---
+
+```{r}
+hourly_delay
+```
+
+---
+
+## ggvis (example from webinar)
+
+```{r} 
+library(nycflights13)
+library(dplyr)
+library(ggvis)
+library(lubridate)
+library(knitr)
+
+## Summarize and join daily flight and weather data
+daily <- flights %>%
+  filter(origin == "EWR") %>%
+  group_by(year, month, day) %>%
+  summarise(
+    delay = mean(dep_delay, na.rm = TRUE),
+    cancelled = mean(is.na(dep_delay))
+  )
+```
+
+### https://github.com/rstudio/webinars/blob/master/2014-01/2-ggvis.R
+
+---
+
+## ggvis (example from webinar)
+
+```{r}
+daily_weather <- weather %>%
+  filter(origin == "EWR") %>%
+  group_by(year, month, day) %>%
+  summarise(
+    temp = mean(temp, na.rm = TRUE),
+    wind = mean(wind_speed, na.rm = TRUE),
+    precip = sum(precip, na.rm = TRUE)
+  )
+both <- daily %>%
+  inner_join(daily_weather) %>%
+  ungroup() %>%
+  mutate(date = as.Date(ISOdate(year, month, day)))
+```
+
+### https://github.com/rstudio/webinars/blob/master/2014-01/2-ggvis.R
+
+---
+
+## Pipes in ggvis
+
+```{r, eval=FALSE}
+## NB - won't embed into Slidify presentation...
+both %>%
+  ggvis(x = ~temp, y = ~delay) %>%
+  layer_points() %>%
+  layer_smooths()
+```
