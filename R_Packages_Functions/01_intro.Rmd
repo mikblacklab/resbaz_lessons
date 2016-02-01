@@ -57,11 +57,11 @@ devtools::install_github("klutometis/roxygen")
 
  - Time: it takes extra time to turn something into a function (but not much).
  - Workflow: R code is often written as part of an exploratory data analysis process - it is being driven by ideas about the analysis we are performing and the question we ask along the way.
- - Focus: R users are generally not trained programmers - our focus is on using code to achieve a goal, and that goal is not to create "elegant, well-written, re-useable" code.  It is generally about trying to answer a scientific question.
+ - Focus: R users are generally not trained programmers - our focus is on using code to achieve a goal, and that goal is not to create "elegant, well-written, re-usable" code.  It is generally about trying to answer a scientific question.
  
 ## Why SHOULD we write functions?
 
- - I am not even going to tell you how many times I have typed the same code across diferrent projects...  
+ - I am not even going to tell you how many times I have typed the same code across different projects...  
  - Turning frequently used code into a collection of functions will save you time
  - It will also improve the readability, flow and organisation of your code.
  - And once you get into the habit of creating your own functions, it will make you a better programmer.

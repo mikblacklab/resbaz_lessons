@@ -30,7 +30,7 @@ http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
 
 ## Getting ready
 
- - To get started, we need to instal the `devtools` and `roxygen` packages.
+ - To get started, we need to install the `devtools` and `roxygen` packages.
 
 ```{r, eval=FALSE}
 install.packages('devtools')
