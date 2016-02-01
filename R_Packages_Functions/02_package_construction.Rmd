@@ -62,11 +62,18 @@ create("cats")
 
 ## What did that do?
 
+ - Have a look at the "cats" folder, inside your working directory (you set that to a sensible place, right?) to see what the `create()` command did:
+
 ```{r}
 list.files(path = "cats", recursive=TRUE, include.dirs=TRUE)
 ```
 
+ - It made some files, and one (empty) directory: R.
+
 ## Create a function
+
+ - Even though you've just spent ages creating funcions, lets make another one!  
+ - A really simple on this time:
 
 ```{r}
 cat_function <- function(love=TRUE){
@@ -79,7 +86,11 @@ cat_function <- function(love=TRUE){
 }
 ```
 
+ - Aside: look at how readable this function is!  We can figure out what it does without even running it.
+
 ## Try it out
+
+ - Let's try it though, just for fun:
 
 ```{r}
 cat_function(love=TRUE)
@@ -87,13 +98,21 @@ cat_function(love=FALSE)
 cat_function()
 ```
 
+ - That is pure fluffy goodness: I wish it was my function!
+
 ## Write the function to a file
 
+ - We need to take the code for our function, and put in in a file in the "R" directory.
+ - Having gone to all the trouble of creating the function in R, I can't be bothered copying and pasting it into a file: `dump` is a pretty useful command:
 ```{r}
 dump('cat_function', file='cats/R/cat_function.R')
 ```
+ - Now we've got some actual content in our package.
 
 ## Add some extra info to it
+
+ - We've not quite ready to create our package yet - we need documentation!
+ - Add the following to the top of your function file:
 
 ```{r, eval=FALSE}
 #' A Cat Function
@@ -105,6 +124,8 @@ dump('cat_function', file='cats/R/cat_function.R')
 #' @examples
 #' cat_function()
 ```
+
+ - The fancy syntax tells the `roxygen2` package how to handle our edits.
 
 ```{r, echo=FALSE}
 
@@ -123,6 +144,8 @@ dump('cat_function', file='cats/R/cat_function.R', append=TRUE)
 
 ## Process your documentation
 
+ - The `document()` command from the `roxygen2` package uses the information we just provided to generate proper R documentation for our function - how cool is that?!
+
 ```{r}
 setwd("./cats")
 document()
@@ -135,6 +158,8 @@ detach("package:cats", unload=TRUE)
 
 ## Install package
 
+ - Now we can install our very basic package (it only has one function...)
+
 ```{r, eval=FALSE}
 setwd("..")
 install("cats")
@@ -144,9 +169,13 @@ install("cats")
 install('cats')
 ```
 
+ - If you type `library()` you should now be able to see that the package is listed as being installed on your system.
+    - perhaps we need a little more documentation....
+
 ## Test it out
 
-Don't forget to load the library first...
+ - Try using `cat_function`
+   - Don't forget to load the library first... (might have to `rm('cat_function')` first)
 
 ```{r, error=TRUE}
 cat_function()
@@ -159,14 +188,17 @@ cat_function()
 
 ## Test your documentation
 
+ - How does the documentation look?
+
 ```{r}
 ?cat_function
 ```
 
-## Install from Github repo
+ - Perhaps a little sparse....
 
-```{r, eval=FALSE}
-install_github('mikblack/cats')
-```
+## Exercises
 
+ 1.  Add a description of what the package does to the DESCRIPTION file, and then reinstall the package.
+ 2.  Add (and document) a second function to the package.
+ 
 

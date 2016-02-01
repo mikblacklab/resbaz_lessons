@@ -155,11 +155,24 @@ library(roxygen2)</pre>
 
 </article></slide><slide class=''><hgroup><h2>What did that do?</h2></hgroup><article  id="what-did-that-do">
 
+<ul>
+<li>Have a look at the &quot;cats&quot; folder, inside your working directory (you set that to a sensible place, right?) to see what the <code>create()</code> command did:</li>
+</ul>
+
 <pre class = 'prettyprint lang-r'>list.files(path = &quot;cats&quot;, recursive=TRUE, include.dirs=TRUE)</pre>
 
 <pre >## [1] &quot;cats.Rproj&quot;  &quot;DESCRIPTION&quot; &quot;NAMESPACE&quot;   &quot;R&quot;</pre>
 
+<ul>
+<li>It made some files, and one (empty) directory: R.</li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Create a function</h2></hgroup><article  id="create-a-function">
+
+<ul>
+<li>Even though you&#39;ve just spent ages creating funcions, lets make another one!<br/></li>
+<li>A really simple on this time:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>cat_function &lt;- function(love=TRUE){
     if(love==TRUE){
@@ -170,7 +183,15 @@ library(roxygen2)</pre>
     }
 }</pre>
 
+<ul>
+<li>Aside: look at how readable this function is! We can figure out what it does without even running it.</li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Try it out</h2></hgroup><article  id="try-it-out">
+
+<ul>
+<li>Let&#39;s try it though, just for fun:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>cat_function(love=TRUE)</pre>
 
@@ -184,11 +205,29 @@ library(roxygen2)</pre>
 
 <pre >## [1] &quot;I love cats!&quot;</pre>
 
+<ul>
+<li>That is pure fluffy goodness: I wish it was my function!</li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Write the function to a file</h2></hgroup><article  id="write-the-function-to-a-file">
+
+<ul>
+<li>We need to take the code for our function, and put in in a file in the &quot;R&quot; directory.</li>
+<li>Having gone to all the trouble of creating the function in R, I can&#39;t be bothered copying and pasting it into a file: <code>dump</code> is a pretty useful command:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>dump(&#39;cat_function&#39;, file=&#39;cats/R/cat_function.R&#39;)</pre>
 
+<ul>
+<li>Now we&#39;ve got some actual content in our package.</li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Add some extra info to it</h2></hgroup><article  id="add-some-extra-info-to-it">
+
+<ul>
+<li>We&#39;ve not quite ready to create our package yet - we need documentation!</li>
+<li>Add the following to the top of your function file:</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>#&#39; A Cat Function
 #&#39;
@@ -199,7 +238,15 @@ library(roxygen2)</pre>
 #&#39; @examples
 #&#39; cat_function()</pre>
 
+<ul>
+<li>The fancy syntax tells the <code>roxygen2</code> package how to handle our edits.</li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Process your documentation</h2></hgroup><article  id="process-your-documentation">
+
+<ul>
+<li>The <code>document()</code> command from the <code>roxygen2</code> package uses the information we just provided to generate proper R documentation for our function - how cool is that?!</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>setwd(&quot;./cats&quot;)
 document()</pre>
@@ -213,6 +260,10 @@ document()</pre>
 
 </article></slide><slide class=''><hgroup><h2>Install package</h2></hgroup><article  id="install-package">
 
+<ul>
+<li>Now we can install our very basic package (it only has one function&#8230;)</li>
+</ul>
+
 <pre class = 'prettyprint lang-r'>setwd(&quot;..&quot;)
 install(&quot;cats&quot;)</pre>
 
@@ -222,9 +273,20 @@ install(&quot;cats&quot;)</pre>
 ##   --library=&#39;/Library/Frameworks/R.framework/Versions/3.1/Resources/library&#39;  \
 ##   --install-tests</pre>
 
+<ul>
+<li>If you type <code>library()</code> you should now be able to see that the package is listed as being installed on your system.
+
+<ul>
+<li>perhaps we need a little more documentation&#8230;.</li>
+</ul></li>
+</ul>
+
 </article></slide><slide class=''><hgroup><h2>Test it out</h2></hgroup><article  id="test-it-out">
 
-<p>Don&#39;t forget to load the library first&#8230;</p>
+<ul>
+<li>Try using <code>cat_function</code></li>
+<li>Don&#39;t forget to load the library first&#8230; (might have to <code>rm(&#39;cat_function&#39;)</code> first)</li>
+</ul>
 
 <pre class = 'prettyprint lang-r'>cat_function()</pre>
 
@@ -237,11 +299,22 @@ cat_function()</pre>
 
 </article></slide><slide class=''><hgroup><h2>Test your documentation</h2></hgroup><article  id="test-your-documentation">
 
+<ul>
+<li>How does the documentation look?</li>
+</ul>
+
 <pre class = 'prettyprint lang-r'>?cat_function</pre>
 
-</article></slide><slide class=''><hgroup><h2>Install from Github repo</h2></hgroup><article  id="install-from-github-repo">
+<ul>
+<li>Perhaps a little sparse&#8230;.</li>
+</ul>
 
-<pre class = 'prettyprint lang-r'>install_github(&#39;mikblack/cats&#39;)</pre></article></slide>
+</article></slide><slide class=''><hgroup><h2>Exercises</h2></hgroup><article  id="exercises">
+
+<ol>
+<li>Add a description of what the package does to the DESCRIPTION file, and then reinstall the package.</li>
+<li>Add (and document) a second function to the package.</li>
+</ol></article></slide>
 
 
   <slide class="backdrop"></slide>
