@@ -1,7 +1,14 @@
-## Creating Functions and Packages in R
+## R: Functions and Packages
 
-A few slides to cover basic package generation in R.
+So far, four parts:
+ - Intro/Overview
+ - Basic package construction
+ - Package anatomy
+ - Testing
 
-Not sure that we will use this material though, as there is also similar SWC content available:
+Rendered HTML:
 
-http://swcarpentry.github.io/r-novice-inflammation/08-making-packages-R.html
+https://rawgit.com/mikblacklab/resbaz_lessons/master/R_Packages_Functions/01_intro.html
+https://rawgit.com/mikblacklab/resbaz_lessons/master/R_Packages_Functions/02_package_construction.html
+https://rawgit.com/mikblacklab/resbaz_lessons/master/R_Packages_Functions/03_package_anatomy.html
+https://rawgit.com/mikblacklab/resbaz_lessons/master/R_Packages_Functions/04_testing.html
