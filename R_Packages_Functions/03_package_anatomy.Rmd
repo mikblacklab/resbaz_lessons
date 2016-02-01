@@ -6,5 +6,15 @@ date: "2 Feb 2016"
 output: ioslides_presentation
 ---
   
-## Still some work to do...  
+## Congrats, you made a package...
+
+ - These lessons are NOT going to teach you how to become R package maestros.
+ - For that, please see Hadley's website (or maybe even buy the book):
+    - web: http://r-pkgs.had.co.nz/
+    - pdf: http://shop.oreilly.com/product/0636920034421.do
+    - paper/kindle: http://www.amazon.com/dp/1491910593/
+ - There are a few more things worth knowing though... (and many of them I learned from Hadley)
+ 
+## What is in a package?
+
   
