@@ -17,5 +17,9 @@ cd /projects/uoo00010/NeSI_Demo
 sbatch NeSI_Demo_parallel_full.sl
 squeue -u simon.kelly
 
+ls
+head -20550 slurm-XXXXXX.out | tail -100
+
+
 scancel XXXXXX
 cat slurm-XXXXXX.out
