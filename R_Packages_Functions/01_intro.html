@@ -97,9 +97,40 @@
 <ul>
 <li>Writing functions in R</li>
 <li>R package construction (basic)</li>
-<li>R pckage anatomy</li>
+<li>R package anatomy</li>
 <li>R packages distribution</li>
 <li>Testing</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Aside - some awesomeness</h2></hgroup><article  id="aside---some-awesomeness">
+
+<ul>
+<li><p>Karl Broman&#39;s (<a href='https://twitter.com/kwbroman' title=''>@kwbroman</a>) &quot;Tools for Reproducible Research&quot; course is awesome:</p>
+
+<p><a href='http://kbroman.org/Tools4RR/' title=''>http://kbroman.org/Tools4RR/</a></p>
+
+<p><a href='https://github.com/kbroman' title=''>https://github.com/kbroman</a></p></li>
+<li><p>Many of the things we&#39;ll talk about her have been borrowed from Karl&#39;s excellent lectures.</p></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Another aside - packages to install</h2></hgroup><article  id="another-aside---packages-to-install">
+
+<ul>
+<li>Later in the lesson we&#39;ll be using the following R packages:
+
+<ul>
+<li><code>devtools</code></li>
+<li><code>roxygen2</code></li>
+</ul></li>
+<li>These can be installed via:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>install.packages(&#39;devtools&#39;)
+library(&quot;devtools&quot;)
+devtools::install_github(&quot;klutometis/roxygen&quot;)</pre>
+
+<ul>
+<li>Maybe fire up RStudio and do this now, to avoid a logjam later&#8230;</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Introduction - functions</h2></hgroup><article  id="introduction---functions">
@@ -113,11 +144,14 @@
 </article></slide><slide class=''><hgroup><h2>Writing our own functions</h2></hgroup><article  id="writing-our-own-functions">
 
 <ul>
-<li>Despite our love of other people&#39;s functions, it often takes R users a while to start writing their own functions, despite there being a number of benefits:</li>
+<li>Despite our love of other people&#39;s functions, it often takes R users a while to start writing their own functions, despite there being a number of benefits:
+
+<ul>
 <li>better code organisation</li>
 <li>less code re-writing (e.g., copy and paste)</li>
 <li>better ability to test, debug and document</li>
 <li>improved sharing</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Why don&#39;t we do it more?</h2></hgroup><article  id="why-dont-we-do-it-more">
@@ -142,16 +176,19 @@
 <ul>
 <li>Once you&#39;ve written some functions that you use regularly, it is a simple step to turn them into a package.</li>
 <li>Once installed, your functions are always available in R.</li>
-<li>Makes software maintenance/improvement easier - all code stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)</li>
+<li>Makes software maintenance/improvement easier - all code and documentation stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)</li>
 <li>Makes sharing easier - others can use your functions by simply installing your package.</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Resources</h2></hgroup><article  id="resources">
 
 <ul>
-<li>Hadley Wickham has produced some excellent material on coding style and package creation:</li>
+<li>Hadley Wickham (<a href='https://twitter.com/hadleywickham' title=''>@hadleywickham</a>) has produced some excellent material on coding style and package creation:
+
+<ul>
 <li>Programming: <a href='http://adv-r.had.co.nz/' title=''>http://adv-r.had.co.nz/</a></li>
 <li>Packages: <a href='http://r-pkgs.had.co.nz/' title=''>http://r-pkgs.had.co.nz/</a></li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Lets write some functions&#8230;.</h2></hgroup><article  id="lets-write-some-functions....">

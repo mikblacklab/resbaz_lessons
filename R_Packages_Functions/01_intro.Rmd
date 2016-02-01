@@ -9,10 +9,35 @@ output: ioslides_presentation
 
  - Writing functions in R
  - R package construction (basic)
- - R pckage anatomy
+ - R package anatomy
  - R packages distribution
  - Testing
 
+## Aside - some awesomeness
+
+ - Karl Broman's ([\@kwbroman](https://twitter.com/kwbroman)) "Tools for Reproducible Research" course is awesome:
+ 
+    http://kbroman.org/Tools4RR/
+    
+    https://github.com/kbroman
+ 
+ - Many of the things we'll talk about her have been borrowed from Karl's excellent lectures.
+ 
+## Another aside - packages to install
+
+ - Later in the lesson we'll be using the following R packages:
+    - `devtools`
+    - `roxygen`
+ - These can be installed via:
+
+```{r, eval=FALSE}
+install.packages('devtools')
+library("devtools")
+devtools::install_github("klutometis/roxygen")
+```
+
+ - Maybe fire up RStudio and do this now, to avoid a logjam later...
+ 
 ## Introduction - functions
 
  - In R, internal and library functions provide users with access to powerful analytic tools.
@@ -22,10 +47,10 @@ output: ioslides_presentation
 ## Writing our own functions
 
  - Despite our love of other people's functions, it often takes R users a while to start writing their own functions, despite there being a number of benefits:
-  - better code organisation
-  - less code re-writing (e.g., copy and paste)
-  - better ability to test, debug and document
-  - improved sharing
+    - better code organisation
+    - less code re-writing (e.g., copy and paste)
+    - better ability to test, debug and document
+    - improved sharing
  
 ## Why don't we do it more?
 
@@ -44,14 +69,14 @@ output: ioslides_presentation
 
  - Once you've written some functions that you use regularly, it is a simple step to turn them into a package.
   - Once installed, your functions are always available in R.
-  - Makes software maintenance/improvement easier - all code stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)
+  - Makes software maintenance/improvement easier - all code and documentation stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)
   - Makes sharing easier - others can use your functions by simply installing your package.
   
 ## Resources
 
- - Hadley Wickham has produced some excellent material on coding style and package creation:
-  - Programming: http://adv-r.had.co.nz/
-  - Packages: http://r-pkgs.had.co.nz/
+ - Hadley Wickham ([\@hadleywickham](https://twitter.com/hadleywickham)) has produced some excellent material on coding style and package creation:
+    - Programming: http://adv-r.had.co.nz/
+    - Packages: http://r-pkgs.had.co.nz/
  
 ## Lets write some functions....
 

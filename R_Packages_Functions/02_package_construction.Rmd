@@ -1,20 +1,35 @@
 ---
-title: "Packages - Lesson 1"
+title: "Creating packages in R"
 author: "Mik Black"
 date: "2 Feb 2016"
 output: ioslides_presentation
 ---
 
+## Before we start
+
+ - There is a perfectly good Software Carpentry lesson on creating R packages, but we will not be using it:
+ 
+ http://swcarpentry.github.io/r-novice-inflammation/08-making-packages-R.html
+
+ - Why not?  Because I had already written some of my slides when Murray pointed out that I had re-invented the wheel.
+ 
+   - I'm sure there is a ResBaz-related life-lesson in there somewhere...
+ 
+ - I really just wanted a reason to show you Hilary's "cat cup".
+ 
+
 ## Attribution
 
-![](https://hilaryparker.files.wordpress.com/2014/10/cropped-img_20140902_1804591.jpg)
+<img src="https://hilaryparker.files.wordpress.com/2014/10/cropped-img_20140902_1804591.jpg" height="300">
 
-Thanks to Hilary Parker - code adapted from:
+Thanks to Hilary Parker ([\@hspter](https://twitter.com/hspter)) - code adapted from:
 
 http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
 
 
 ## Getting ready
+
+ - To get started, we need to instal the `devtools` and `roxygen` packages.
 
 ```{r, eval=FALSE}
 install.packages('devtools')
@@ -28,7 +43,12 @@ library(devtools)
 library(roxygen2)
 ```
 
+ - `devtools` (Hadley Wickham & Winston Chang): Tools to Make Developing R Packages Easier
+ - `roxygen2` (Hadley Wickham, Peter Danenberg & Manuel Eugster):  In-source Documentation for R
+
 ## Setting up
+
+ - Use the `create()` function from `devtools` to set up a basic package structure:
 
 ```{r, echo=FALSE}
 system('rm -Rf cats')
