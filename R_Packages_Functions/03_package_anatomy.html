@@ -105,10 +105,121 @@
 <li>paper/kindle: <a href='http://www.amazon.com/dp/1491910593/' title=''>http://www.amazon.com/dp/1491910593/</a></li>
 </ul></li>
 <li>There are a few more things worth knowing though&#8230; (and many of them I learned from Hadley)</li>
-<li>Note that Hadley&#39;s approach to creating packages is based on some additional functionality provided by RStudio: we haven&#39;t utilized that here.</li>
+<li>Note that Hadley&#39;s approach to creating packages is based on some additional functionality provided by RStudio: we haven&#39;t explicitly utilized that here (more later).</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>What is in a package?</h2></hgroup><article  id="what-is-in-a-package"></article></slide>
+</article></slide><slide class=''><hgroup><h2>Aside - it&#39;s a package, not a library&#8230;</h2></hgroup><article  id="aside---its-a-package-not-a-library...">
+
+<ul>
+<li>Just a minor point:
+
+<ul>
+<li>package: the thing we just made (basically a collection of functions).</li>
+<li>library: a place where lots of packages live (i.e., a directory in your computer&#39;s file system).</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>What is in our package?</h2></hgroup><article  id="what-is-in-our-package">
+
+<ul>
+<li>Code: the &#39;R&#39; directory</li>
+<li>Package metadata: DESCRIPTION file
+
+<ul>
+<li>developer info (that&#39;s you)</li>
+<li>includes dependency information (packages, R version etc)</li>
+<li>version number</li>
+</ul></li>
+<li>Documentation: the man directory
+
+<ul>
+<li>Objects and functions</li>
+<li>Use <code>roxygen</code> syntax to generate this automatically</li>
+</ul></li>
+<li>Namespace: NAMESPACE file</li>
+<li>RStudio project file: cats.Rproj (see next page)</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Aside - the RStudio project file</h2></hgroup><article  id="aside---the-rstudio-project-file">
+
+<ul>
+<li><code>cats.RProj</code>: text file created by <code>devtools</code>.</li>
+<li>Don&#39;t edit it by hand - use the RStudio interface (&quot;Projects&quot; drop down - top right).</li>
+<li>Have a quick look at the content&#8230;</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>What else can be in there?</h2></hgroup><article  id="what-else-can-be-in-there">
+
+<ul>
+<li>Vignettes: detailed user manual for the package - THESE ARE GREAT!
+
+<ul>
+<li>create with Sweave or Rmarkdown/knitr</li>
+<li>include examples of typical workflows</li>
+<li><code>devtools::use_vignette(&quot;my-vignette&quot;)</code> to generate basic framework</li>
+</ul></li>
+<li>Testing: the &#39;tests&#39; directory (more later)</li>
+<li>Data files: the &#39;data&#39; directory.</li>
+<li>Compiled code: the &#39;src&#39; directory.</li>
+<li>Installed files: the &#39;inst&#39; directory.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Package distribution</h2></hgroup><article  id="package-distribution">
+
+<ul>
+<li>How can you share you package with others?</li>
+<li>Build and send?</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>## In R:
+devtools::build(&#39;cats&#39;)</pre>
+
+<pre >## &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --vanilla CMD build  \
+##   &#39;/Users/black/GitHub/resbaz_lessons/R_Packages_Functions/cats&#39;  \
+##   --no-resave-data --no-manual</pre>
+
+<pre >## [1] &quot;/Users/black/GitHub/resbaz_lessons/R_Packages_Functions/cats_0.0.0.9000.tar.gz&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>list.files(pattern=&quot;*.gz&quot;)</pre>
+
+<pre >## [1] &quot;cats_0.0.0.9000.tar.gz&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Sharing your package</h2></hgroup><article  id="sharing-your-package">
+
+<ul>
+<li>Easy to share a version of your package with others.</li>
+<li>What happens when you change something?</li>
+<li>Need a system that allows users to automatically update their version of the package, without you having to rebuild it and send it to them.</li>
+<li>Perhaps time for some version control&#8230;.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Using Git and GitHub</h2></hgroup><article  id="using-git-and-github">
+
+<ul>
+<li>Git provides the ability to track changes to the files that make up your package.</li>
+<li>GitHub extends this functionality be providing a centralised repository where the evolving (and stable) versions of a package can be stored, and accessed by others.</li>
+<li>The <code>devtools</code> packages provides an interface between R and GitHub, so that packages can be installed directly from a GitHub repository.</li>
+<li>We&#39;ve already done this with the <code>roxygen2</code> package:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>devtools::install_github(&quot;klutometis/roxygen&quot;)</pre>
+
+<ul>
+<li>GitHub repo: <a href='https://github.com/klutometis/roxygen' title=''>https://github.com/klutometis/roxygen</a></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>The beauty of devtools&#8230;</h2></hgroup><article  id="the-beauty-of-devtools...">
+
+<ul>
+<li><code>devtools</code> has made package development and distribution simple
+
+<ul>
+<li>Previously developers had to release packages through an established repository (e.g., CRAN or Bioconductor), or host copies of the package source code that could be downloaded and installed.</li>
+<li>Now the same tools being used to provide centralised version control (Git and GitHub), are also being used for package distribution.<br/></li>
+</ul></li>
+<li>Even if you&#39;re only developing packages for yourself, the combination of <code>devtools</code>, <code>roxygen2</code>, Git and GitHub is a powerful development platform.</li>
+<li>Now you just need to implement some testing&#8230;</li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>
