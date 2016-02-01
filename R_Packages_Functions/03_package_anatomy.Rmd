@@ -1,0 +1,10 @@
+---
+title: "Creating packages in R"
+subtitle: "Part 3: R package anatomy"
+author: "Mik Black"
+date: "2 Feb 2016"
+output: ioslides_presentation
+---
+  
+## Still some work to do...  
+  

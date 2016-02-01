@@ -1,5 +1,6 @@
 ---
 title: "Creating Functions and Packages in R"
+subtutle: "Part 1: Overview and Introduction"
 author: "Mik Black"
 date: "2 February 2016"
 output: ioslides_presentation

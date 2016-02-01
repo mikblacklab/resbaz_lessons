@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Creating Functions and Packages in R</title>
+  <title>Creating packages in R</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,8 +25,9 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Creating Functions and Packages in R',
-                        useBuilds: true,
+                title: 'Creating packages in R',
+                        subtitle: 'Part 3: R package anatomy',
+                useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
         enableTouch: true,
@@ -88,116 +89,11 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2 February 2016</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2 Feb 2016</p>
           </hgroup>
   </slide>
 
-<slide class=''><hgroup><h2>Overview - what will we cover?</h2></hgroup><article  id="overview---what-will-we-cover">
-
-<ul>
-<li>Writing functions in R</li>
-<li>R package construction (basic)</li>
-<li>R package anatomy</li>
-<li>R packages distribution</li>
-<li>Testing</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Aside - some awesomeness</h2></hgroup><article  id="aside---some-awesomeness">
-
-<ul>
-<li><p>Karl Broman&#39;s (<a href='https://twitter.com/kwbroman' title=''>@kwbroman</a>) &quot;Tools for Reproducible Research&quot; course is awesome:</p>
-
-<p><a href='http://kbroman.org/Tools4RR/' title=''>http://kbroman.org/Tools4RR/</a></p>
-
-<p><a href='https://github.com/kbroman' title=''>https://github.com/kbroman</a></p></li>
-<li><p>Many of the things we&#39;ll talk about her have been borrowed from Karl&#39;s excellent lectures.</p></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Another aside - packages to install</h2></hgroup><article  id="another-aside---packages-to-install">
-
-<ul>
-<li>Later in the lesson we&#39;ll be using the following R packages:
-
-<ul>
-<li><code>devtools</code></li>
-<li><code>roxygen</code></li>
-</ul></li>
-<li>These can be installed via:</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>install.packages(&#39;devtools&#39;)
-library(&quot;devtools&quot;)
-devtools::install_github(&quot;klutometis/roxygen&quot;)</pre>
-
-<ul>
-<li>Maybe fire up RStudio and do this now, to avoid a logjam later&#8230;</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Introduction - functions</h2></hgroup><article  id="introduction---functions">
-
-<ul>
-<li>In R, internal and library functions provide users with access to powerful analytic tools.</li>
-<li>These functions form the basis of much of our own code: we use functions written by others in a way that helps us achieve our own analysis goals.</li>
-<li>Even relatively inexperienced R users are fairly quick to adopt the idea of loading packages to gain access to powerful collections of functions.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Writing our own functions</h2></hgroup><article  id="writing-our-own-functions">
-
-<ul>
-<li>Despite our love of other people&#39;s functions, it often takes R users a while to start writing their own functions, despite there being a number of benefits:
-
-<ul>
-<li>better code organisation</li>
-<li>less code re-writing (e.g., copy and paste)</li>
-<li>better ability to test, debug and document</li>
-<li>improved sharing</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Why don&#39;t we do it more?</h2></hgroup><article  id="why-dont-we-do-it-more">
-
-<ul>
-<li>Time: it takes extra time to turn something into a function (but not much).</li>
-<li>Workflow: R code is often written as part of an exploratory data analysis process - it is being driven by ideas about the analysis we are performing and the question we ask along the way.</li>
-<li>Focus: R users are generally not trained programmers - our focus is on using code to achieve a goal, and that goal is not to create &quot;elegant, well-written, re-useable&quot; code. It is generally about trying to answer a scientific question.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Why SHOULD we write functions?</h2></hgroup><article  id="why-should-we-write-functions">
-
-<ul>
-<li>I am not even going to tell you how many times I have typed the same code across diferrent projects&#8230;<br/></li>
-<li>Turning frequently used code into a collection of functions will save you time</li>
-<li>It will also improve the readability, flow and organisation of your code.</li>
-<li>And once you get into the habit of creating your own functions, it will make you a better programmer.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Packages</h2></hgroup><article  id="packages">
-
-<ul>
-<li>Once you&#39;ve written some functions that you use regularly, it is a simple step to turn them into a package.</li>
-<li>Once installed, your functions are always available in R.</li>
-<li>Makes software maintenance/improvement easier - all code and documentation stays in one place (I am guilty of having multiple versions of files containing different versions of the same function living all over my laptop)</li>
-<li>Makes sharing easier - others can use your functions by simply installing your package.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Resources</h2></hgroup><article  id="resources">
-
-<ul>
-<li>Hadley Wickham (<a href='https://twitter.com/hadleywickham' title=''>@hadleywickham</a>) has produced some excellent material on coding style and package creation:
-
-<ul>
-<li>Programming: <a href='http://adv-r.had.co.nz/' title=''>http://adv-r.had.co.nz/</a></li>
-<li>Packages: <a href='http://r-pkgs.had.co.nz/' title=''>http://r-pkgs.had.co.nz/</a></li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Lets write some functions&#8230;.</h2></hgroup><article  id="lets-write-some-functions....">
-
-<ul>
-<li>We&#39;ll use the Software Carpentry material on writing functions as a quick refresher:</li>
-</ul>
-
-<p><a href='http://swcarpentry.github.io/r-novice-inflammation/02-func-R.html' title=''>http://swcarpentry.github.io/r-novice-inflammation/02-func-R.html</a></p></article></slide>
+<slide class=''><hgroup><h2>Still some work to do&#8230;</h2></hgroup><article  id="still-some-work-to-do..."></article></slide>
 
 
   <slide class="backdrop"></slide>

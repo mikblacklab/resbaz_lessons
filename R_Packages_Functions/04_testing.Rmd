@@ -1,7 +1,8 @@
 ---
-title: "Packages - Lesson 2"
+title: "Creating packages in R"
+subtitle: "Part 4: Testing"
 author: "Murray Cadzow"
-date: "29 January 2016"
+date: "2 February 2016"
 output: ioslides_presentation
 ---
 
