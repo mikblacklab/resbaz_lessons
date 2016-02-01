@@ -1,35 +1,9 @@
 ---
-title       : (Re)Introducing dplyr and ggvis
-subtitle    : Or "why Hadley Wickham is awesome, part 72..."
-author      : Mik Black
-job         : Group Meeting, 12 August 2014
-framework   : mikIO        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
-widgets     : mathjax            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
----
-
-## RStudio video: dplyr and ggvis
-
- - Presentations on dplyr (Hadley) and ggvis (Winston Chang) from July 30:
- 
-      Video: http://info.rstudio.net/n0N20NH02JCS0NX0X000Y74
-      
-      Code: https://github.com/rstudio/webinars
-
-   - `dplyr` expands on (refines?) Hadley's previous packages for data manipulation (`reshape` and `plyr`).
- 
-   - ggvis provides the ability to embed interactive graphics into documents.
-
----
-
-## Overview (stolen from talk)
-
-<center><img src = 'PNG/had1.png' height=450></img></center>
-
-### http://info.rstudio.net/n0N20NH02JCS0NX0X000Y74
-
+title: "R: Data Manipulation"
+subtitle: "dplyr"
+author: "Murray Cadzow"
+date: "2 February 2016"
+output: ioslides_presentation
 ---
 
 ## Resources
@@ -48,13 +22,6 @@ mode        : selfcontained # {standalone, draft}
   
   http://vita.had.co.nz/papers/tidy-data.pdf
 
----
-
-## dplyr
-
- - `dplyr` is all about 
-
----
 
 ## dplyr commands (verbs)
 
@@ -71,13 +38,12 @@ mode        : selfcontained # {standalone, draft}
 browseVignettes('dplyr')
 ```
 
----
 
-## Example from webinar
+## Flights Example
 
 ```{r}
-## Install the nycflights13 package via:
-## install_github("hadley/nycflights13")
+## install.packages("dplyr")
+## install.packages("nycflights13")
 library(nycflights13)
 library(dplyr)
 ```
@@ -120,9 +86,9 @@ by_day <- group_by(flights, year, month, day)
 summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
 ```
 
----
 
-## Bad code - Mik style...
+
+## Nesting
 
 ```{r}
 hourly_delay <- filter(
@@ -147,7 +113,6 @@ hourly_delay <- filter(
 hourly_delay
 ```
 
----
 
 ## The pipe operator: `%>%`
 
@@ -170,58 +135,21 @@ hourly_delay <- flights %>%
 hourly_delay
 ```
 
----
 
-## ggvis (example from webinar)
+## Have a play
 
-```{r} 
-library(nycflights13)
-library(dplyr)
-library(ggvis)
-library(lubridate)
-library(knitr)
-
-## Summarize and join daily flight and weather data
-daily <- flights %>%
-  filter(origin == "EWR") %>%
-  group_by(year, month, day) %>%
-  summarise(
-    delay = mean(dep_delay, na.rm = TRUE),
-    cancelled = mean(is.na(dep_delay))
-  )
-```
-
-### https://github.com/rstudio/webinars/blob/master/2014-01/2-ggvis.R
 
 ---
 
-## ggvis (example from webinar)
-
-```{r}
-daily_weather <- weather %>%
-  filter(origin == "EWR") %>%
-  group_by(year, month, day) %>%
-  summarise(
-    temp = mean(temp, na.rm = TRUE),
-    wind = mean(wind_speed, na.rm = TRUE),
-    precip = sum(precip, na.rm = TRUE)
-  )
-both <- daily %>%
-  inner_join(daily_weather) %>%
-  ungroup() %>%
-  mutate(date = as.Date(ISOdate(year, month, day)))
-```
-
-### https://github.com/rstudio/webinars/blob/master/2014-01/2-ggvis.R
+Combine today with tomorrow...
 
 ---
 
-## Pipes in ggvis
-
-```{r, eval=FALSE}
-## NB - won't embed into Slidify presentation...
-both %>%
-  ggvis(x = ~temp, y = ~delay) %>%
-  layer_points() %>%
-  layer_smooths()
+```{r, warning=FALSE}
+library(ggplot2)
+flights %>% 
+  filter(carrier == "UA", origin == "EWR") %>% 
+  ggplot(. , aes(x = air_time, y = distance)) + 
+  geom_point(aes(colour = dest))
 ```
+
