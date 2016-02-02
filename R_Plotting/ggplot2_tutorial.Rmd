@@ -1,12 +1,15 @@
 ---
-title : "ggplot2 Tutorial"
-author  : "Murray Cadzow"
-output  : html_document
+title: "R: Plotting"
+subtitle: "ggplot2"
+author: "Murray Cadzow"
+date: "3 February 2016"
+output: ioslides_presentation
 ---
 
+## Attribution/Resources
 
-
-Much of this tutorial is comprised of information from https://github.com/DataScienceSpecialization/courses/tree/master/04_ExploratoryAnalysis
+Much of this tutorial is comprised of information from https://github.com/DataScienceSpecialization/courses/
+tree/master/04_ExploratoryAnalysis
 
 and
 
@@ -50,7 +53,7 @@ https://www.rstudio.com/wp-content/uploads/2015/05/ggplot2-cheatsheet.pdf
 
 Make sure ggplot2 is installed and if it isn't install it
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 #Make sure ggplot2 is installed
 if(!require("ggplot2")) {
     install.packages("ggplot2")
@@ -64,86 +67,118 @@ We'll use the iris dataset for the examples
 data(iris)
 ```
 
-### qplot()
+## qplot()
+
 ```{r}
 qplot(Sepal.Length, Sepal.Width, data= iris)
 ```
 
+---
+
 Modify aesthetics
+
 ```{r}
 qplot(Sepal.Length, Sepal.Width, data= iris, colour = Species)
 ```
+
+---
 
 Add a geom
 ```{r}
 qplot(Sepal.Length, Sepal.Width, data= iris, geom = c("point","smooth"))
 ```
 
-### Moving from qplot() to ggplot()
+## Moving from qplot() to ggplot()
 
 - setup plot with ggplot() and define aesthetics
 - add geom for points
 
+---
+
 ```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point()
+```
 
+---
+
+```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point(aes(size=Petal.Width, colour = Species)) +
   geom_hline(yintercept = mean(iris$Sepal.Width)) +
   coord_cartesian(xlim = c(0,9), ylim=c(0,5))
 ```
 
-### Histogram
-```{r}
-ggplot(data = subset(iris, Species == "setosa"), aes(x=Sepal.Length)) + geom_histogram()
+## Histogram
 
+```{r, message=FALSE}
+ggplot(data = subset(iris, Species == "setosa"), 
+       aes(x=Sepal.Length)) + 
+  geom_histogram()
 ```
 
-### Boxplots
+## Boxplots
+
 ```{r}
 ggplot(data = iris, aes(x=Species, y=Sepal.Length)) + 
   geom_boxplot()
+```
 
+---
+
+```{r}
 ggplot(data = iris, aes(x=Species, y=Sepal.Length)) + 
   geom_boxplot(aes(colour=Species)) + 
   geom_jitter()
 ```
 
-### Facetting
+## Facetting
 
 - wrap
 - grid
+
+## grid
 
 ```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point() + 
   facet_grid(.~Species)
+```
 
+---
+
+```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point() + 
   facet_grid(Species~.)
+```
 
+## Wrap
+
+```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point() + 
   facet_wrap(~Species)
 
 ```
 
+## Labels
 
-### Labels
 - ggtitle()
 - xlab()
 - ylab()
 - labs(title= "", x = "", y = "")
 
-### Themes
+## Themes
+
 - theme_bw()
 - theme_grey()
 - theme_classic()
 - theme_minimal()
 
 or change particular elements with __theme()__ and specify which __element__ to change
+
+---
 
 ```{r}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
@@ -154,9 +189,32 @@ ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) +
   theme_bw()
 ```
 
+---
+
 But with power comes responsibility...
 
-```{r}
+```{r, eval=FALSE}
+ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
+  geom_point(colour="yellow", shape='*', size = 10) +
+  ggtitle("Iris Sepal length vs Sepal width") +
+  xlab("Sepal Length (mm)")+
+  ylab("Sepal Width (mm)") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size=16, angle = 45), 
+        axis.text.y = element_text(size=16), 
+        axis.title.x= element_text(size=18), 
+        axis.title.y = element_text(size=18),
+        plot.title = element_text(colour = "purple", face='bold'),
+        panel.grid.major = element_line(colour="red", 
+                                        linetype = "dashed", size = 3),
+        panel.grid.minor = element_line(colour='blue', 
+                                        linetype='dotted', size=2),
+        panel.background = element_rect(fill="#00FF00")) 
+```
+
+---
+
+```{r, echo = FALSE}
 ggplot(data = iris, aes(x=Sepal.Length, y =Sepal.Width)) + 
   geom_point(colour="yellow", shape='*', size = 10) +
   ggtitle("Iris Sepal length vs Sepal width") +
