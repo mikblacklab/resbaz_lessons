@@ -1,0 +1,3 @@
+The package nycflights13 can be found [here](https://github.com/hadley/nycflights13).
+
+To get it into your R run a command `install.packages("nycflights13")`.
