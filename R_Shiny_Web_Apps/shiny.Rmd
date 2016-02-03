@@ -471,6 +471,14 @@ http://www.shinyapps.io/
 
 These range from free services for users deploying a small number of relatively low activity (i.e., not much usage), through to professional US$299 per month service plans for unlimited numbers of apps with high usage rates.
 
+## One more thing... ggvis
+
+The `ggvis` package provide the ability to interact directly with the data presented in the plot.
+
+http://ggvis.rstudio.com/
+
+Also allows interactive graphics to be embedded into documents created with Rmarkdown.
+
 ## Time to play
 
 We've only just scratced the surface of what is possible with shiny.
