@@ -5,17 +5,49 @@ date: "4 February 2016"
 output: html_document
 ---
 
-## Rstudio links
+## Overview
+
+This lesson works through a series of steps to create a simple 
+web-based interface using the R shiny package.
+
+Install shiny via:
+
+```{r, eval=FALSE}
+install.packages('shiny')
+```
+
+## RStudio links
+
+The RStudio website provides a lot of information on how to use shiny:
 
 http://shiny.rstudio.com/
 
 http://shiny.rstudio.com/tutorial/
 
-## Load shiny package
+They also provide a gallery of shiny apps:
 
-```{r}
-library(shiny)
-```
+http://shiny.rstudio.com/gallery/
+
+## What does shiny do?
+
+The shiny packages allows users to create incricate (or simple) interactive web pages for data analysis and/or visualisation.
+
+All code is written in R, so there is no need to use web-specific tools such as javascript or CSS.
+
+Over the past two years, shiny has become an incredibly popular tool for generating interactive web pages, and a huge number of powerful and compelling interfaces have been created.
+
+## Shiny components
+
+A shiny application requires two files:
+
+ - ui.R defines the user interface (i.e., how the user will interact with the web page).
+ - server.R defines the content (i.e., the data, visualisations and analyses the user will be interacting with)
+
+The tutorial on the RStudio site provides these files for a simple shiny app.
+
+We're going to simplify even further - rather than start with an existing app, we'll generate some plots in R, and then figure out how to place them within a shiny app.
+
+Once we've got a basic interface in place, we'll gradually add elements to extend the functionality.
 
 ## Example ui.R code
 
@@ -118,14 +150,15 @@ data(cars)
 ## Create the function to be excuted by shiny 
 shinyServer(function(input, output) {
   
-## Define an object called "main_plot" that will be drawn by the "renderPlot" function
+  ## Define an object called "main_plot" that will be drawn 
+  ## by the "renderPlot" function
   output$main_plot <- renderPlot({
-
-## Specify the plot that will be generated
-      hist(cars[,"speed"])
-  })
+    
+    ## Specify the plot that will be generated
+    hist(cars[,"speed"])
+    })
   
-})
+  })
 ```
 
 ## Creating a VERY basic shiny app: interface
@@ -137,19 +170,19 @@ ui.R file:
 ```{r, eval=FALSE}
 shinyUI(bootstrapPage(
   
-## Tell shiny what to plot - the "main_plot" object associated with "output" generated
-## by the server.R file
+  ## Tell shiny what to plot - the "main_plot" object 
+  ## associated with "output" generated
+  ## by the server.R file
   plotOutput(outputId = "main_plot")
   
-))
-
+  ))
 ```
 
 ## Running the app
 
-Create a subdirectory called "carsApp", and place the ui.R and server.R files in that directory.
+Create a directory called "carsApp", and place the ui.R and server.R files in that directory (i.e., copy and paste the code above into files called ui.R and server.R in a directory called "carsApp").
 
-In R, load the shiny library, and run the app:
+In R, load the shiny package, and run the app:
 
 ```{r, eval=FALSE}
 library(shiny)
@@ -162,27 +195,30 @@ If you are working in RStudio, the `runApp()` command will open your app in a bu
 
 All the `runApp()` command did was create an ugly plot in a web browser.
 
-We won't fix the "ugly" just yet, but lets improve the interactivity.
+We won't fix the "ugly" just yet, but lets add some interactivity.
 
 ## Adding interactivity: ui.R
 
-Add an option to choose which variable to plot.
+Add an option to choose which variable to plot (speed or dist).
 
 First update the interface:
 
 ```{r, eval=FALSE}
 shinyUI(bootstrapPage(
   
+  ## Add a pull-down menu to allow selection of
+  ## the variable to be plotted
   selectInput(inputId = "plot_var",
               label = "Variable to plot",
               choices = c("speed", "dist"),
               selected = "speed"),
-    
-## Tell shiny what to plot - the "main_plot" object associated with "output" generated
-## by the server.R file
+  
+  ## Tell shiny what to plot - the "main_plot" object 
+  ## associated with "output" generated
+  ## by the server.R file
   plotOutput(outputId = "main_plot")
   
-))
+  ))
 ```
 
 Then modify the server.R file to accommodate the new information. Specifically, we edit the line:
@@ -199,6 +235,8 @@ hist(cars[,input$plot_var])
 
 This tells the `hist` command to plot the data specified by `plot_var` from the `input` object (specified in ui.R).
 
+The server.R file becomes:
+
 ```{r, eval=FALSE}
 ## Load the "cars" data set
 data(cars)
@@ -206,14 +244,15 @@ data(cars)
 ## Create the function to be excuted by shiny 
 shinyServer(function(input, output) {
   
-## Define an object called "main_plot" that will be drawn by the "renderPlot" function
+  ## Define an object called "main_plot" that will 
+  ## be drawn by the "renderPlot" function
   output$main_plot <- renderPlot({
-
-## Specify the plot that will be generated
-      hist(cars[,input$plot_var])
-  })
+    
+    ## Specify the plot that will be generated
+    hist(cars[,input$plot_var])
+    })
   
-})
+  })
 ```
 
 ## Test the new app
@@ -222,38 +261,53 @@ shinyServer(function(input, output) {
 runApp('carsApp')
 ```
 
-Now we've got some interactivity!  Time work on the "ugly"...
+Now we've got some interactivity!  Time to work on the "ugly"...
 
 ## Change the page style
 
-ui.R file:
+We've started with the most basic shiny framework for a webpage.
+
+By changing the details in the ui.R file, we can change the layout (and look) of our interface.
+
+A common approach to application design is to provide a "side bar" on the left of the screen for users to interact with - this then alters the content being displayed on the right.
+
+Edit the ui.R file:
 
 ```{r, eval=FALSE}
+## Use a different page style (add a sidebar)
 shinyUI(pageWithSidebar(
   
-## Give the application a title
+  ## Give the application a title
   headerPanel("My awesome plotting app"),
   
-## Put the input controls in a sidebar 
+  ## Put the input controls in a sidebar 
   sidebarPanel(
     
-  selectInput(inputId = "plot_var",
-              label = "Variable to plot",
-              choices = c("speed", "dist"),
-              selected = "speed")
-  ),
-
-## Put the outout in the main panel
+    selectInput(inputId = "plot_var",
+                label = "Variable to plot",
+                choices = c("speed", "dist"),
+                selected = "speed")
+    ),
+  
+  ## Put the outout in the main panel
   mainPanel(
-
+    
     ## Give the panel a name
     h4("Plot of cars data"),
     
-    ## Tell shiny what to plot - the "main_plot" object associated with "output" generated
+    ## Tell shiny what to plot - the "main_plot" object 
+    ## associated with "output" generated
     ## by the server.R file
     plotOutput(outputId = "main_plot")
-  )
-))
+    )
+  ))
+```
+
+Lets see how our updated app looks:
+
+```{r, eval=FALSE}
+runApp('carsApp')
+```
 
 ## Lets get some more interactivity
 
@@ -297,10 +351,10 @@ runApp('carsApp')
 Create something new to plot in server.R (add below the existing plotting code):
 
 ```{r, eval=FALSE}
-## Define a second plot
+  ## Define a second plot
   output$second_plot <- renderPlot({
 
-## Specify the plot that will be generated
+      ## Specify the plot that will be generated
       boxplot(cars[,input$plot_var])
   })
 ```
@@ -341,7 +395,7 @@ runApp('carsApp')
 
 Shiny also provides the ability to "conditionally" display input selectors.
 
-In our current app, the slider input remains visible when the boxplot tab is being viewed, even though it is not relevant for that plot (and moved it has no impact).
+In our current app, the slider input remains visible when the boxplot tab is being viewed, even though it is not relevant for that plot (and moving it has no impact).
 
 To ensure that the slider only appears for the histogram panel, alter the ui.R file to specify when it should be displayed.
 
@@ -394,6 +448,54 @@ In the mainPanel section, specify when "condition 1" occurs:
 ```
 
 Now when you run the app, the slider only appears in the sidebarPanel when the histrogram tab is being displayed.  Much tidier....
+
+## Getting your apps online
+
+So far we've only created a web interface that runs on our local computer - how do we get it on the internet so that other people can use our awesome tool?
+
+The RStudio team has created "shiny server":
+
+https://www.rstudio.com/products/shiny/shiny-server/
+
+This application runs in a linux environment, and runs a webserver that serves the shiny applications.
+
+This is not particularly difficult to set up (assuming you have access to a linux machine and a domain name).
+
+What if you don't...?
+
+## Getting your apps online the easy way
+
+RStudio also offers hosting services:
+
+http://www.shinyapps.io/
+
+These range from free services for users deploying a small number of relatively low activity (i.e., not much usage), through to professional US$299 per month service plans for unlimited numbers of apps with high usage rates.
+
+## Time to play
+
+We've only just scratced the surface of what is possible with shiny.
+
+There are a number of relatively complex concepts (e.g., reactivity) that we haven't explored, but this lesson should have given you a feel for what is possible.
+
+Take a look at some examples of shiny apps:
+
+http://shiny.rstudio.com/gallery/
+
+http://www.showmeshiny.com/
+
+and have a look at the Shiny material available via RStudio:
+
+http://shiny.rstudio.com/tutorial/
+
+It is well worth working through the tutorial.  On that page there is also a link to a 2.5 hour video of the "How to start shiny" webinar series.
+
+There are also a number of more detailed articles available:
+
+http://shiny.rstudio.com/articles/
+
+plus an excellent shiny cheatsheet in PDF format that you can download:
+
+http://www.rstudio.com/wp-content/uploads/2016/01/shiny-cheatsheet.pdf
 
 
 
