@@ -27,7 +27,7 @@ output: html_document
 
 ```{r}
 ## Lets load the data and take a look at it first
-data <- read.csv('dummy_data.csv')
+data <- read.csv('patient_data.csv')
 
 ## What type of object have we created?
 class(data)
