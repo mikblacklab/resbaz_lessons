@@ -8,9 +8,10 @@ Here's a quick summary of what is being taught, and by whom in the non-SWC sessi
  - Data manipulation: Murray - draws upon content from http://www.datacarpentry.org/R-ecology/
  - Plotting in R: Murray, Mik & Tanya (is Mik needed? - clashes with Tools4RR session) - uses the plotting material from the sessions with the summer students in December?  Base R plotting: https://github.com/murraycadzow/R_tutorials/blob/master/plotting.Rmd
    ggplot2 material - https://github.com/smilefreak/studyGroup/blob/gh-pages/lessons/ggplot2_tutorial.Rmd
- - NeSI: Sung and Tom
-  - Accessing NeSI Resources (Sung): existing material?
-  - Parallel R on NeSI (Tom): material on his repo: https://github.com/TomKellyGenetics/resbaz-2016-NeSI_Rmpi_Demo
+ - NeSI: Sung, Tom (Otago Biochemistry), and Danny (Otago Physics)
+  - Accessing NeSI Resources (Sung): https://www.dropbox.com/s/7y62clg9fdpwmml/Accessing%20NeSI%20HPC%20Resources_tom_danny.pptx?dl=0
+  - Parallel R on NeSI (Tom): material on his repo: https://github.com/TomKellyGenetics/resbaz-2016-NeSI_Rmpi_Demo and merged on the nesi_Rmpi-demo folder
+  - Parallel MATLAB on NeSI (Danny): on his repo  https://github.com/dannybaillie/NeSI (along with a guide to NeSI access for Otago/Institution users)
  - Building web apps in Shiny (Mik): need to generate this material.  Barebones example on Data Carpentry: https://github.com/datacarpentry/2015-06-30-FederalReserveBoard/wiki
  - Tools for RR (morning - more advanced): Aleksandra - material TBD.  
  - Intro to Tools for RR (afternoon - basic): Mik - material TBD.  Karl Broman has a whole (awesome) course on this: https://github.com/kbroman/Tools4RR/tree/master
